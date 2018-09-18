@@ -1,0 +1,56 @@
+---
+title: "p8105_hw1_js5354"
+author: "Jiayi Shen"
+date: "9/13/2018"
+output: github_document
+---
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+## Problem 1
+
+```{r, collapse = TRUE}
+problem1_df = tibble(
+  random_sample = sample(0:5, 10, replace=TRUE),
+  vec_logical = c(random_sample[1:10]>2),
+  vec_char= c("a","b","c","d","e","f","g","h","i","end"),
+  vec_factor = factor(c("Y","N", "N", "Y","N", "N", "Y","N", "N", "N"))
+)
+
+### take the mean of each variable.
+
+mean(problem1_df$random_sample)
+mean(problem1_df$vec_logical)
+mean(problem1_df$vec_char)
+mean(problem1_df$vec_factor)
+
+
+### check the class of each variable.
+
+class(problem1_df$random_sample)
+class(problem1_df$vec_logical)
+class(problem1_df$vec_char)
+class(problem1_df$vec_factor)
+
+```
+
+Mean can be calculate for numeric and logical variables, but not for charactors and factors.
+
+
+```{r, eval = FALSE}
+as.numeric(problem1_df$vec_logical)
+as.numeric(problem1_df$vec_char)
+as.numeric(problem1_df$vec_factor)
+
+```
+Factor "Y" and "N" are converted into 1 and 2 respectively. However, characters cannot be converted to numerical values and the result displays "NA"
+
+```{r}
+as.numeric(as.factor(problem1_df$vec_char))
+as.numeric(as.character(problem1_df$vec_factor))
+```
+
+When character varialbes are first converted to factor and then numeric variables, they are assigned positive intergers starting from 1, in an alphebetic order. On the other hand, when factor varialbes are converted to character and then to numeric, "NA"s were introduced. 
