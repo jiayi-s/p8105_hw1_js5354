@@ -5,14 +5,14 @@ date: "9/13/2018"
 output: github_document
 ---
 
-```{r, include=FALSE}
+```{r, include = FALSE}
 library(tidyverse)
 ```
 
 
 ## Problem 1
 
-```{r, collapse = TRUE}
+```{r generate_variables, collapse = TRUE, warning = FALSE}
 problem1_df = tibble(
   random_sample = sample(0:5, 10, replace=TRUE),
   vec_logical = c(random_sample[1:10]>2),
@@ -20,19 +20,22 @@ problem1_df = tibble(
   vec_factor = factor(c("Y","N", "N", "Y","N", "N", "Y","N", "N", "N"))
 )
 
-### take the mean of each variable.
 
 mean(problem1_df$random_sample)
+
 mean(problem1_df$vec_logical)
+
 mean(problem1_df$vec_char)
+
 mean(problem1_df$vec_factor)
 
 
-### check the class of each variable.
-
 class(problem1_df$random_sample)
+
 class(problem1_df$vec_logical)
+
 class(problem1_df$vec_char)
+
 class(problem1_df$vec_factor)
 
 ```
@@ -41,9 +44,11 @@ Mean can be calculate for numeric and logical variables, but not for charactors 
 Logical vectors are turned to integer vectors when a numerical value is required, with TRUE being mapped to 1 and FALSE to 0. However, charactor vectors and factor vectors cannot be coerced to numeric vectors in the content where a numerical value is required.
 
 
-```{r, eval = FALSE}
+```{r numeric_coercion, results= 'hide', warning = FALSE, collapse = TRUE}
 as.numeric(problem1_df$vec_logical)
+
 as.numeric(problem1_df$vec_char)
+
 as.numeric(problem1_df$vec_factor)
 
 ```
@@ -53,8 +58,10 @@ We are getting this result because the as.numeric function turns factor vectors 
 
 
 
-```{r}
+```{r double_coercion, collapse = TRUE, warning = FALSE}
+
 as.numeric(as.factor(problem1_df$vec_char))
+
 as.numeric(as.character(problem1_df$vec_factor))
 ```
 
@@ -63,7 +70,7 @@ When character varialbes are first converted to factor and then numeric variable
 
 ## Problem 2
 
-```{r}
+```{r generate_tibble, collapse = TRUE}
 problem2_df = tibble(
   x = rnorm (1000, mean = 0, sd = 1),
   y = rnorm (1000, mean = 0, sd = 1),
@@ -82,7 +89,7 @@ The mean of x is `r mean(problem2_df$x)` ; the median of x is `r median(problem2
 There are `r true_proportion * 100` % of cases for which the logical vector is TRUE.
 
 
-```{r}
+```{r plot}
 ggplot(problem2_df, aes(x = x, y = y, color = vec2_logical)) + geom_point()
 ggsave("hw1_first_plot.pdf")
 ggplot(problem2_df, aes(x = x, y = y, color = vec2_numeric)) + geom_point()
