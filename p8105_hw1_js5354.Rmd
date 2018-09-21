@@ -41,7 +41,8 @@ class(problem1_df$vec_factor)
 ```
 
 Mean can be calculate for numeric and logical variables, but not for charactors and factors. 
-Logical vectors are turned to integer vectors when a numerical value is required, with TRUE being mapped to 1 and FALSE to 0. However, charactor vectors and factor vectors cannot be coerced to numeric vectors in the content where a numerical value is required.
+
+Logical vectors are coerced into integer vectors when a numerical value is required, with TRUE being mapped to 1 and FALSE to 0. However, charactor vectors and factor vectors cannot be coerced to numeric vectors in the content where a numerical value is required.
 
 
 ```{r numeric_coercion, results= 'hide', warning = FALSE, collapse = TRUE}
@@ -52,9 +53,10 @@ as.numeric(problem1_df$vec_char)
 as.numeric(problem1_df$vec_factor)
 
 ```
-Factor "Y" and "N" are converted into 1 and 2 respectively. However, characters cannot be converted to numerical values and the result displays "NA". 
 
-We are getting this result because the as.numeric function turns factor vectors into underlying numeric representation, though meaningless. However, as.numeric function is not capable of turning letter(s) into numbers so we get "NA" when we apply this function to character vectors.
+Factor "Y" and "N" are converted into interger 1 and 2 respectively. However, characters cannot be converted to numerical values and the result displays "NA". 
+
+The reason of getting such results is that the `as.numeric` function turns factor vectors into underlying numeric representation, though meaningless. However, `as.numeric` is not capable of transforming letter(s) into numbers so we get "NA" when we apply this function to character vectors.
 
 
 
@@ -65,7 +67,7 @@ as.numeric(as.factor(problem1_df$vec_char))
 as.numeric(as.character(problem1_df$vec_factor))
 ```
 
-When character varialbes are first converted to factor and then numeric variables, they are assigned positive intergers starting from 1, in an alphebetic order. On the other hand, when factor varialbes are converted to character and then to numeric, "NA"s were introduced. 
+When character varialbes are first converted to factor and then numeric variables, they are assigned positive intergers starting from 1. And in this case the intergers are assigned alphebetically. On the other hand, when factor varialbes are converted to character and then to numeric, "NA"s were introduced because R cannot coerce character varialbes into numeric variables.
 
 
 ## Problem 2
@@ -97,4 +99,6 @@ ggplot(problem2_df, aes(x = x, y = y, color = vec2_factor)) + geom_point()
 
 ```
 
-All three plots produce scatter plots in which two discrete colors are seperated by a straight line y = -x. Coloring by numeric vector generates four discrete color scales evenly spaced between 0 and 1. Because the numeric vector is previously coerced from the logical vector so it only takes values of 0 and 1, the plot that is colored according to numeric vector displays dots of only two colors.
+All three plots produced scatter plots with dots in two discrete colors. Each of the three scatter plots seemed to be divided into two areas, by a straight line y = -x, with dots of the same color staying only on one side of the straight line. Dots above y = -x are those with `x + y > 0` = TRUE, and vice versa. Thus when we included argument 'color = ...' in the ggplot function, the outcome displayed different colors based on different values in the variable in this argument.  
+
+Additionally, coloring by numeric vector generated four discrete color scales evenly spaced between 0 and 1. Because the numeric vector was previously coerced from the logical vector which only took values of 0 and 1, the plot here displayed dots of only two colors.
